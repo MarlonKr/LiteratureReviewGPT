@@ -1,0 +1,48 @@
+1. Understand the research question
+   1.1. Break down the research question into key components
+       1.1.1. Income inequality in China
+       1.1.2. Economic development in China
+       1.1.3. Economic stability in China
+
+2. Familiarize with the directory of resources
+   2.1. Review the list of books and papers
+   2.2. Identify the most relevant sources for each component of the research question
+   2.3. Organize the sources by relevance and topic
+
+3. Conduct similarity searches
+   3.1. Use the embedded vectors to find relevant pages in the sources
+   3.2. Extract and record relevant quotations and data
+
+4. Develop a thesis statement
+   4.1. Formulate a clear and concise argument addressing the research question
+   4.2. Make sure the thesis is supported by the evidence found in the sources
+
+5. Create an outline for the assignment paper
+   5.1. Introduction
+       5.1.1. Present the research question
+       5.1.2. Introduce the thesis statement
+   5.2. Literature Review
+       5.2.1. Summarize relevant theories and previous research
+   5.3. Methodology
+       5.3.1. Describe the process of conducting similarity searches and selecting sources
+   5.4. Analysis
+       5.4.1. Discuss the findings from the similarity searches
+       5.4.2. Connect the findings to the research question and thesis statement
+   5.5. Conclusion
+       5.5.1. Sum up the main points of the analysis
+       5.5.2. Restate the thesis statement
+       5.5.3. Offer suggestions for further research
+
+6. Write the assignment paper
+   6.1. Follow the outline while writing each section of the paper
+   6.2. Use relevant quotations and data to support your argument
+   6.3. Ensure the paper is well-structured and coherent
+
+7. Edit and proofread the assignment paper
+   7.1. Review the paper for clarity and coherence
+   7.2. Check for grammar, punctuation, and spelling errors
+   7.3. Verify proper citation and formatting according to the required style (e.g., APA, MLA, or Chicago)
+
+8. Finalize the assignment paper
+   8.1. Incorporate any necessary revisions and corrections
+   8.2. Save the final version of the paper in the appropriate format (e.g., Word document, PDF)
