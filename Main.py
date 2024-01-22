@@ -18,7 +18,6 @@ BASE_DIR = Path(os.getcwd())
 
 dirs = {
     "base": BASE_DIR,
-    "prompts": BASE_DIR / "prompts",
     "resources": BASE_DIR / "resources",
     "resources_done": BASE_DIR / "resources" / "done",
     "embeddings": BASE_DIR / "embeddings",
@@ -38,17 +37,6 @@ for key, path in dirs.items():
     path.mkdir(parents=True, exist_ok=True)
 
 
-def delete_ds_store_files(directory):
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file == '.DS_Store':
-                file_path = os.path.join(root, file)
-                try:
-                    os.remove(file_path)
-                    print(f'Successfully deleted: {file_path}')
-                except OSError as e:
-                    print(f'Error deleting {file_path}: {e}')
-
 def is_json_serializable(obj):
     if isinstance(obj, str):
         try:
@@ -63,8 +51,6 @@ def is_json_serializable(obj):
         except (TypeError, json.JSONDecodeError):
             return False
 
-def cosine_similarity_embeddings(embedding1, embedding2):
-    return 1 - spatial.distance.cosine(embedding1, embedding2)
 
 def get_embedding_string_jsondump(text, directory=str, filename=str, model="text-embedding-ada-002"):
     embedding = openai.Embedding.create(input=[text], model=model)['data'][0]['embedding']
@@ -451,52 +437,15 @@ def embed_resources(input_path=dirs["resources"], output_path=dirs["embeddings_r
 
     return "done"
 
+from utils import handle_initial_user_inputs, delete_file_system_artifacts
+from decouple import config
 
-research_question = input("Provide the research question: ")
-model_mode = input("Provide the model mode ('1' for gpt-3.5-turbo, '2' for occasional use of gpt-4): ")
-if model_mode == "1":
-    model_mode = "gpt-3.5-turbo"
-elif model_mode == "2":
-    model_mode = "gpt-4"
-else:
-    print("No valid model mode provided. Exiting.")
-    exit()
-
-print(colored("Provide the search depth. The higher the search depth, the more results will be searched by the assistant. A depth of 10 may take up to 2 hours and cost about 4$ in API costs.", "yellow"))
-print(colored("This is an estimate based on two test runs. The actual costs may be higher or lower.", "red"))
+OpenAIConfig.OPENAI_API_KEY = config("OPENAI_API_KEY")
 
 
-# User input
-search_depth = input("Provide the search depth (10 is default): ")
-try:
-    if search_depth == "":
-        search_depth = 10
-    else:
-        search_depth = int(search_depth)
-except:
-    print("Please provide an integer value")
-    search_depth = input("Provide the search depth (10 is default): ")
-    if search_depth == "":
-        search_depth = 11
-    else:
-        try:
-            search_depth = int(search_depth)
-        except ValueError:
-            print("Again no valid integer. Exiting.")
-            exit()
-    
+handle_initial_user_inputs()
 
-if "/apikey" in research_question.lower() or not OpenAIConfig.OPENAI_API_KEY:
-    print("You need to provide an API key.")
-    OpenAIConfig.OPENAI_API_KEY = input("API key: ")
-
-
-beginning_message = [
-    {"role": "system", "content": f"You are an assistant for writing a term paper. You will help the user write a systematic review paper for Harvard University. The research question of the paper is {research_question}. The user will give you various tasks from different stages of the work process. Follow the user's instructions carefully, think step-by-step before answering, and generally stick to scientific and precise language. Always respond with the requested output, never elaborate on your reasoning, and never say anything at the meta-level. You are not allowed to ask questions. You only provide the required output, nothing else."},
-    {"role": "assistant", "content": "Acknowledged. What is my current task?"},
-    ]
-
-delete_ds_store_files(BASE_DIR)
+delete_file_system_artifacts(BASE_DIR)
 
 embedding = embed_resources(input_path=Path(dirs["resources"]), output_path=Path(dirs["embeddings_resources"]))
 if embedding == "done":
